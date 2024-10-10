@@ -1,37 +1,41 @@
 import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
-import React, { useState, useTransition } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import axios from 'axios';
 
 
 function App() {
 
-  const localHost = "http://localhost:8080"
-  //  const localHost = "https://encurta-dev.onrender.com"
+   //  const localHost = "http://localhost:8080"
+ const localHost = "https://encurta-dev.onrender.com"
 
   const [iconUrl, setIconUrl] = useState(faCopy);
   const [textUrl, setTextUrl] = useState("Copiar");
   const [urlOriginal, setUrlOriginal] = useState('');
   const [urlEncurtada, setUrlEncurtada] = useState('');
   const [urlQrCode, setUrlQrCode] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const [mensagemDiv, setMensagemDiv] = useState('Carregando aplicação...');
 
   const handleObterUrlOriginal = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setUrlOriginal(event.target.value);
   };
 
   //function para extrair urlEncurtada
-  const handleEncurtarUrlOriginal = () => {
-    startTransition(() => {
-      axios.post(`${localHost}/encurta-dev`, { urlOriginal })
-        .then((response) => {
-          setUrlEncurtada(response.data.urlEncurtada);
-          setUrlQrCode(response.data.urlQrCode)
-        })
-        .catch((error) => console.error('Erro ao buscar URL encurtada: ', error));;
-    })
-  }
+  const handleEncurtarUrlOriginal = async () => {
+    setIsPending(true);
+    try {
+      const response = await axios.post(`${localHost}/encurta-dev`, { urlOriginal });
+      setUrlEncurtada(response.data.urlEncurtada);
+      setUrlQrCode(response.data.urlQrCode);
+    } catch (error) {
+      console.error('Erro ao buscar URL encurtada: ', error);
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   {/* ESSA FUNÇÃO SERVE PRA COPIAR A URL ENCURTADA*/ }
   const handleCopiarClique = () => {
@@ -50,6 +54,29 @@ function App() {
         console.error('Erro ao copiar o texto: ', error);
       });
   };
+
+
+    useEffect(() => {
+      setIsPending(true);
+      const initializeApp = async () => {
+        setMensagemDiv("Carregando aplicação...");
+        try {
+          await axios.get(`${localHost}/connect`);
+          setIsAppLoaded(true);  
+          setIsPending(false);
+        } catch (error) {
+          console.error('Erro ao inicializar a aplicação: ', error);
+          setMensagemDiv("Não foi possível carregar a aplicação. Aguarde alguns instantes e recarregue a página.");
+        } finally {
+        }
+      };
+  
+      initializeApp();
+    }, []);
+
+   if (isPending && !isAppLoaded) {
+    return <div className="loading-screen">{mensagemDiv}</div>;
+  }
 
   return (
     <div className='container'>
