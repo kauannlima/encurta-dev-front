@@ -13,18 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 body, html {
-  height: 100%; /* Faz com que o body ocupe toda a altura da tela */
-  margin: 0; /* Remove a margem padrão do body */
-  position: relative; /* Define o contexto para o posicionamento absoluto */
+  height: 100%; 
+  margin: 0;
+  position: relative; 
 }
 
 .container {
-  position: absolute; /* Define o posicionamento absoluto */
-  top: 50%; /* Posiciona 50% a partir do topo */
-  left: 50%; /* Posiciona 50% a partir da esquerda */
-  transform: translate(-50%, -50%); /* Move o container para o centro */
-  width: 95%; /* Defina a largura desejada */
-  max-width: 600px; /* Defina uma largura máxima, se necessário */
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 600px; 
   display: flex;
 flex-direction: column;
 }
@@ -41,12 +41,14 @@ h1 {
   display: flex;
   justify-items: center;
   margin: 0 auto;
+  
 }
 .encurta-url > input{
   min-width: 60%;
 }
 .encurta-url > button{
   min-width: 40%;
+  
 }
 .input-url, .button-url {
   font-size: 1em;
@@ -55,6 +57,7 @@ h1 {
   height: 3em;
   box-sizing: border-box;
   border: 2px solid gray;
+  font-family: Montserrat;
 }
 .input-url{
   border-radius: 8px 0px 0px 8px ;
@@ -62,7 +65,6 @@ h1 {
 }
 .button-url {
   border-radius: 8px;
-  font-family: inherit;
   background-color: #111;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -97,12 +99,39 @@ h1 {
     display: flex;
 }
 
-.encurta-qrcode{
-  border: 2px solid white;
-  width: 200px;
-  height: 200px;
+.encurta-qrcode {
+  background-color: white;
+  width: 200px; 
+  height: 200px; 
   margin: 3em auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative; 
 }
+
+img {
+  width: 130%; 
+  height: 130%; 
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+.download-link{
+  color: gray;
+  text-align: center;
+  text-decoration: none;
+  margin: 0 auto;
+  display: block;
+  font-weight: 500;
+  font-size: 1.3em;
+  transition: color 0.25s;
+}
+.download-link:hover{
+  color: white;
+}
+
+
 
 
 
