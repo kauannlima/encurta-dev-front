@@ -61,25 +61,25 @@ h1 {
 }
 .input-url{
   border-radius: 8px 0px 0px 8px ;
-  border-right-width: 1px;
-}
+  border-right-width: none}
 .button-url {
   border-radius: 8px;
   background-color: #111;
   cursor: pointer;
   transition: border-color 0.25s;
   border-radius: 0px 8px 8px 0px;
-  border-left-width: 1px;
 
 }
 .input-url:hover,input:focus,
 .input-url:focus-visible, .button-url:hover,button:focus,
-.button-url:focus-visible {
+.button-url:focus-visible, .copiar-nova-url:hover,.copiar-nova-url:focus,
+.copiar-nova-url:focus-visible {
   border-color: white;
 }
 
 .copiar-nova-url{
   font-family: Roboto Mono;
+  border: 2px solid gray;
   background-color: #111;
   padding: 1em;
   border-radius: 8px;
