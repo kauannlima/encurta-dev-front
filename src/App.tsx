@@ -8,7 +8,7 @@ import axios from 'axios';
 function App() {
 
    //  const localHost = "http://localhost:8080"
- const localHost = "https://encurta-dev.onrender.com"
+ const localHost = "https://encurta-dev.vercel.app"
 
   const [iconUrl, setIconUrl] = useState(faCopy);
   const [textUrl, setTextUrl] = useState("Copiar");
